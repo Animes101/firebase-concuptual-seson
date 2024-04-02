@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const NavBar = () => {
   return (
-    <header className="p-4 bg-gray-500 text-white dark:bg-gray-100 dark:text-gray-800">
+    <header className="p-4 bg-[#171717] text-white dark:bg-gray-100 dark:text-gray-800">
       <div className="container flex justify-between h-16 mx-auto">
         <div className="flex items-center justify-center">
           <a
@@ -30,7 +30,7 @@ const NavBar = () => {
         </div>
         <div className="items-center flex-shrink-0 hidden lg:flex ">
           <button className="px-8 py-3 font-semibold rounded bg-green-400 dark:bg-violet-600 dark:text-gray-50">
-            Log in
+            Log Out
           </button>
         </div>
         <button className="p-4 lg:hidden">
