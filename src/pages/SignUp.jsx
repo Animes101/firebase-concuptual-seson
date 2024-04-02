@@ -11,6 +11,10 @@ const SignUp = () => {
 
     const email=e.target.email.value;
     const password=e.target.password.value;
+
+    //password validation
+
+
     //sign up user Function authProvider
 
     signUpUser(email,password)

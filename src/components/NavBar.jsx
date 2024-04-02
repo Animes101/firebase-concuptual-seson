@@ -1,6 +1,23 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "./authProvider/AuthProvider";
 
 const NavBar = () => {
+
+  const {user,logOUt}=useContext(AuthContext);
+
+
+  const handleLogout=()=>{
+    logOUt()
+    .then(res=>{
+      console.log(res)
+    })
+    .catch(err=>{
+      console.log(err.message)
+    })
+  }
+
+  console.log(user);
   return (
     <header className="p-4 bg-[#171717] text-white dark:bg-gray-100 dark:text-gray-800">
       <div className="container flex justify-between h-16 mx-auto">
@@ -28,11 +45,12 @@ const NavBar = () => {
             </li>
           </ul>
         </div>
-        <div className="items-center flex-shrink-0 hidden lg:flex ">
-          <button className="px-8 py-3 font-semibold rounded bg-green-400 dark:bg-violet-600 dark:text-gray-50">
+        {user ? <div className="items-center flex-shrink-0 hidden lg:flex ">
+          <button onClick={handleLogout} className="px-8 py-3 font-semibold rounded bg-green-400 dark:bg-violet-600 dark:text-gray-50">
             Log Out
           </button>
-        </div>
+          <p>{user.email}</p>
+        </div>:''}
         <button className="p-4 lg:hidden">
           <svg
             xmlns="http://www.w3.org/2000/svg"

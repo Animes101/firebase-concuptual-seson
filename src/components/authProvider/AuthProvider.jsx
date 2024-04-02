@@ -1,11 +1,16 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
 import PropTypes from "prop-types";
-import { createContext } from "react";
+import { createContext, useEffect, useState } from "react";
 import auth from "../../fire_base/firebase";
+import { GoogleAuthProvider,onAuthStateChanged  } from "firebase/auth";
 
 export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
+
+    const [user, setUser]=useState(null);
+
+    const googleProvider = new GoogleAuthProvider();
 
  const signUpUser=(email,password)=>{
     return createUserWithEmailAndPassword(auth, email, password)
@@ -15,12 +20,41 @@ const AuthProvider = ({ children }) => {
     return signInWithEmailAndPassword(auth, email, password)
  }
 
+ const googleSignIn=()=>{
+    return signInWithPopup(auth, googleProvider)
+ }
+
+ const logOUt=()=>{
+    return signOut(auth)
+ }
+
 
  const authInfo={
     signUpUser,
-    signInUser
+    signInUser,
+    googleSignIn,
+    logOUt,
+    user,
+    setUser
  }
 
+
+ useEffect(()=>{
+  const onSubscrib=   onAuthStateChanged(auth, (curentUser) => {
+        if (curentUser) {
+          console.log(curentUser)
+        } else {
+          // User is signed out
+          // ...
+
+          console.log('user log log out')
+        }
+      })
+
+      return ()=>{
+        onSubscrib();
+      }
+ })
 
 
   return (
